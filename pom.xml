@@ -4,7 +4,7 @@
 
     <groupId>be.ugent.mmlab.rml</groupId>
     <artifactId>RML-Processor</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
 
     <name>RML - Processor</name>
@@ -74,16 +74,27 @@
         </repository>
     </repositories>
 
-    <dependencies>
-        <dependency>
+     <dependencies>
+          <dependency>
             <groupId>be.ugent.mmlab.rml</groupId>
             <artifactId>RML-ConditionsHandler</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>be.ugent.mmlab.rml</groupId>
+            <artifactId>RML-Model</artifactId>
+            <version>1.1</version>
+        </dependency>
+         <dependency>
+            <groupId>be.ugent.mmlab.rml</groupId>
             <artifactId>RML-MapDocHandler</artifactId>
             <version>1.1-SNAPSHOT</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>be.ugent.mmlab.rml</groupId>
+            		<artifactId>RML-ConditionsHandler</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>be.ugent.mmlab.rml</groupId>

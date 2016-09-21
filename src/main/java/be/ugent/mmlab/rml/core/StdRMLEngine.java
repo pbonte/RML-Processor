@@ -12,8 +12,10 @@ import be.ugent.mmlab.rml.processor.RMLProcessor;
 import be.ugent.mmlab.rml.processor.RMLProcessorFactory;
 import be.ugent.mmlab.rml.processor.concrete.ConcreteRMLProcessorFactory;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,6 +74,22 @@ public class StdRMLEngine implements RMLEngine {
         
         dataset.closeRepository();
     }
+    
+    @Override
+    public void run(RMLMapping mapping, OutputStream outputStream, String outputFormat, 
+            String graphName, Map<String,String> parameters, String[] exeTriplesMap,
+            String metadataLevel, String metadataFormat, String metadataVocab) {
+        RMLDataset dataset;
+        log.debug("Running without metadata...");
+
+        //RML Engine that does not generate metadata
+        dataset = chooseSesameDataSet(
+                "dataset", outputStream, outputFormat);
+
+        runRMLMapping(dataset, mapping, graphName, parameters, exeTriplesMap);
+        
+        dataset.closeRepository();
+    }
 
     /**
      *
@@ -124,6 +142,25 @@ public class StdRMLEngine implements RMLEngine {
                     
         return dataset;
     }
+    
+    public RMLDataset chooseSesameDataSet(String repositoryID,
+            OutputStream outputStream, String outputFormat){
+
+            RMLDataset dataset;
+            
+            if (outputStream != null) {
+                log.debug("Using outpustream");
+                dataset = new FileDataset(outputStream, outputFormat, 
+                        manager, repositoryID);
+                log.debug("Dataset is generated");
+            } else {
+                log.debug("Using default store (memory) ");
+                dataset = new StdRMLDataset();
+            }
+                    
+        return dataset;
+    }
+
 
     /**
      * This process adds RDF triples to the output dataset. Each generated

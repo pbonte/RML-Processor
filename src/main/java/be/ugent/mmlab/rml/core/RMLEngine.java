@@ -4,6 +4,8 @@ import be.ugent.mmlab.rml.model.RMLMapping;
 import be.ugent.mmlab.rml.model.TriplesMap;
 import be.ugent.mmlab.rml.model.dataset.RMLDataset;
 import be.ugent.mmlab.rml.processor.RMLProcessor;
+
+import java.io.OutputStream;
 import java.util.Map;
 
 /**
@@ -13,6 +15,10 @@ import java.util.Map;
 public interface RMLEngine {
     
     public void run(RMLMapping mapping, String outputFile, String outputFormat, 
+            String graphName, Map<String,String> parameters, String[] exeTriplesMap,
+            String metadataLevel, String metadataFormat, String metadataVocab);
+    
+    public void run(RMLMapping mapping, OutputStream outputFile, String outputFormat, 
             String graphName, Map<String,String> parameters, String[] exeTriplesMap,
             String metadataLevel, String metadataFormat, String metadataVocab);
 

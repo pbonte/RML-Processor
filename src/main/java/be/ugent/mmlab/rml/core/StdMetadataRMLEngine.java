@@ -29,6 +29,7 @@ import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
+import org.openrdf.sail.memory.config.MemoryStoreConfig;
 import org.openrdf.sail.nativerdf.config.NativeStoreConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public class StdMetadataRMLEngine extends StdRMLEngine {
                 new MetadataGenerator(pathToNativeStore, manager);
         String indexes = "spoc";
         repositoryTypeSpec = 
-                    new SailRepositoryConfig(new NativeStoreConfig(indexes));
+                    new SailRepositoryConfig(new MemoryStoreConfig(false));
     }
     
     @Override
@@ -381,7 +382,7 @@ public class StdMetadataRMLEngine extends StdRMLEngine {
     public void generateRepositoryManager() {
         String indexes = "spoc";
         repositoryTypeSpec = 
-                    new SailRepositoryConfig(new NativeStoreConfig(indexes));
+                    new SailRepositoryConfig(new MemoryStoreConfig(false));
     }
     
     public String generateRepositoryIDFromFile(String file){
@@ -393,7 +394,7 @@ public class StdMetadataRMLEngine extends StdRMLEngine {
     public void generateRepository(String repositoryID) {
         RepositoryConfig repConfig ;
         repositoryTypeSpec =
-                new SailRepositoryConfig(new NativeStoreConfig("spoc"));
+                new SailRepositoryConfig(new MemoryStoreConfig(false));
         repConfig =
                 new RepositoryConfig(repositoryID, repositoryTypeSpec);
         try {
